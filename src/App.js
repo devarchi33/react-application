@@ -8,10 +8,12 @@ class App extends Component {
             widgetMessage : "This is default widget message.",
             red : 128,
             green : 128,
-            blue : 128
+            blue : 128,
+            value : 0
         }
         this.updateWidget = this.updateWidget.bind(this)
         this.updateSlider = this.updateSlider.bind(this)
+        this.updateClickButton = this.updateClickButton.bind(this)
     }
 
     updateWidget(e) {
@@ -28,7 +30,18 @@ class App extends Component {
         })
     }
 
+    updateClickButton(e) {
+        this.setState({
+            value : this.state.value + 1
+        })
+    }
+
+    componentWillMount(){
+        console.log("mounting!");
+    }
+
     render () {
+        console.log("rendering!");
         let name = this.props.name;
 
         return  (
@@ -42,9 +55,18 @@ class App extends Component {
                 <Slider ref="green" updateSlider={this.updateSlider}/>{this.state.green}<br/>
                 <Slider ref="blue" updateSlider={this.updateSlider}/>{this.state.blue}<br/>
 
-                <MyButton> I <HeartIcon/> React!</MyButton>
+                <MyButton> I <HeartIcon/> React!</MyButton><br/>
+                <button onClick={this.updateClickButton}>{this.state.value}</button>
             </div>
         )
+    }
+
+    componentDidMount() {
+        console.log("Mounted");
+    }
+
+    componentWillUnmount() {
+        console.log("bye!");
     }
 }
 
@@ -87,4 +109,28 @@ App.defaultProps = {
     name : "React"
 }
 
-export default App;
+class Wrapper extends Component {
+    constructor () {
+        super();
+    }
+
+    mount() {
+        ReactDOM.render(<App/>, document.getElementById("a"));
+    }
+
+    unmount() {
+        ReactDOM.unmountComponentAtNode(document.getElementById("a"));
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={this.mount.bind(this)}>Mount</button>
+                <button onClick={this.unmount.bind(this)}>Unmount</button>
+                <div id="a"></div>
+            </div>
+        )
+    }
+}
+
+export default Wrapper;
