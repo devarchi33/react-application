@@ -4,6 +4,7 @@ class App extends Component {
     constructor() {
         super();
         this.state = { message : "This is default state."}
+        this.update = this.update.bind(this)
     }
 
     update(e) {
@@ -17,12 +18,21 @@ class App extends Component {
             <div>
                 <h1>Hello, {name}</h1>
 
-                <input type="text" onChange={this.update.bind(this)}/>
-                <h2>{this.state.message}</h2>
+                <Widget message={this.state.message} update={this.update}/>
+                <Widget message={this.state.message} update={this.update}/>
+                <Widget message={this.state.message} update={this.update}/>
+                <Widget message={this.state.message} update={this.update}/>
             </div>
         )
     }
 }
+
+const Widget = (props) => (
+    <div>
+        <input type="text" onChange={props.update}/>
+        <h2>{props.message}</h2>
+    </div>
+)
 
 App.propTypes = {
     name : React.PropTypes.string.isRequired
