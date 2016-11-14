@@ -41,6 +41,8 @@ class App extends Component {
                 <Slider ref="red" updateSlider={this.updateSlider}/>{this.state.red}<br/>
                 <Slider ref="green" updateSlider={this.updateSlider}/>{this.state.green}<br/>
                 <Slider ref="blue" updateSlider={this.updateSlider}/>{this.state.blue}<br/>
+
+                <MyButton> I <HeartIcon/> React!</MyButton>
             </div>
         )
     }
@@ -66,6 +68,16 @@ class Slider extends Component {
         )
     }
 }
+
+class MyButton extends Component {
+    render() {
+        return (
+            <button>{this.props.children}</button>
+        )
+    }
+}
+
+const HeartIcon = () => <span className="glyphicon glyphicon-heart"></span>
 
 App.propTypes = {
     name : React.PropTypes.string.isRequired
